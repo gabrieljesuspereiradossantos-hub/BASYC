@@ -40,8 +40,8 @@ export default function ProductStudio({ selected, onSelect, fullMotion, openProd
 
     shell.animate([
       { opacity: .94, backgroundColor: "color-mix(in srgb, var(--page-ground) 62%, transparent)", borderRadius: "28px", transform: `perspective(1200px) translate3d(${dx}px,${dy}px,0) scale(${sx},${sy}) rotateY(0deg)` },
-      { opacity: 1, backgroundColor: "color-mix(in srgb, var(--page-ground) 92%, transparent)", borderRadius: "20px", transform: "perspective(1200px) translate3d(0,0,90px) scale(1.035) rotateY(330deg)", offset: .82 },
-      { opacity: 1, backgroundColor: "var(--page-ground)", borderRadius: "0px", transform: "perspective(1200px) translate3d(0,0,0) scale(1) rotateY(360deg)" },
+      { opacity: 1, backgroundColor: "color-mix(in srgb, var(--page-ground) 92%, transparent)", borderRadius: "20px", transform: "perspective(1200px) translate3d(0,0,90px) scale(1.035) rotateY(155deg)", offset: .82 },
+      { opacity: 1, backgroundColor: "var(--page-ground)", borderRadius: "0px", transform: "perspective(1200px) translate3d(0,0,0) scale(1) rotateY(180deg)" },
     ], { duration: 1900, easing: "cubic-bezier(.22,.68,.22,1)", fill: "both" });
     node.animate([
       { opacity: 0, transform: "translateY(20px)" },
