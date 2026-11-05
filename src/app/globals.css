@@ -1151,7 +1151,7 @@ html[data-theme="graphite"] .logo-front {
 .campaign-copy .black-action { position:relative; overflow:hidden; isolation:isolate; background:#242424; color:#fff; transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease; }
 .black-action-label { position:relative; z-index:2; }
 .flame-field { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transform:translateY(30%); transition:opacity 260ms ease,transform 380ms cubic-bezier(.23,1,.32,1); }
-.flame-field i { position:absolute; bottom:-21px; width:23px; height:48px; border-radius:75% 5% 70% 30%; background:linear-gradient(20deg,#bb2e14 7%,#f46d2d 55%,#ffcd75 88%,transparent); filter:blur(2px); transform:rotate(35deg); transform-origin:bottom center; }
+.flame-field i { position:absolute; bottom:-21px; width:23px; height:48px; clip-path:polygon(50% 0,65% 32%,86% 58%,100% 100%,0 100%,14% 58%,35% 32%); background:linear-gradient(20deg,#bb2e14 7%,#f46d2d 55%,#ffcd75 88%,transparent); filter:blur(.5px); transform:rotate(35deg); transform-origin:bottom center; }
 .flame-field i:nth-child(1) { left:4%; height:39px; }
 .flame-field i:nth-child(2) { left:19%; height:52px; animation-delay:-.24s; }
 .flame-field i:nth-child(3) { left:34%; height:42px; animation-delay:-.55s; }
