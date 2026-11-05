@@ -870,6 +870,7 @@ button {
 /* Scroll narrative: slogan → sculpture → collection. */
 :root {
   --page-ground: #f6f6f3;
+  --studio-ground: #e4e5e2;
   --ink: #232526;
   --ink-soft: #484c4d;
   --muted: #5c6162;
@@ -883,6 +884,7 @@ button {
 }
 html[data-theme="graphite"] {
   --page-ground: #17191b;
+  --studio-ground: #26292b;
   --ink: #f1f3f2;
   --accent: #d7e0df;
   --accent-ink: #1a2223;
@@ -963,12 +965,12 @@ html[data-theme="graphite"] .logo-front {
 .studio-heading h2 { margin:0; font-size:clamp(46px,6vw,88px); line-height:1; font-weight:400; letter-spacing:-.04em; }
 .studio-heading p { color:var(--muted); font-size:18px; margin:0 0 7px; }
 .studio-layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr); gap:7%; align-items:center; }
-.studio-camera { position:relative; height:min(740px,78vh); min-height:520px; overflow:hidden; background:#e4e5e2; border-radius:20px; isolation:isolate; }
+.studio-camera { position:relative; height:min(740px,78vh); min-height:520px; overflow:hidden; background:var(--studio-ground); border-radius:20px; isolation:isolate; }
 .camera-layer { position:absolute; inset:0; will-change:transform,opacity; }
 .camera-out { z-index:2; opacity:0; pointer-events:none; }
 .camera-in { z-index:1; }
 .studio-front { width:100%; height:100%; object-fit:contain; padding:45px 60px 115px; filter:drop-shadow(0 24px 18px rgba(20,25,28,.14)); }
-.studio-atlas { position:absolute; inset:0; background-size:300% auto; background-repeat:no-repeat; background-color:#ddd; }
+.studio-atlas { position:absolute; inset:0; background-size:300% auto; background-repeat:no-repeat; background-color:var(--studio-ground); }
 .camera-caption { position:absolute; top:24px; left:24px; z-index:3; padding:7px 12px; border-radius:20px; background:rgba(255,255,255,.8); color:#242829; font-size:12px; }
 .concept-note { position:absolute; bottom:86px; left:20px; right:20px; z-index:3; width:max-content; max-width:calc(100% - 40px); background:rgba(255,255,255,.85); color:#464b4d; border-radius:6px; padding:5px 8px; font-size:10px; }
 .camera-controls { position:absolute; bottom:22px; left:20px; right:20px; z-index:4; display:flex; padding:5px; gap:4px; border-radius:40px; background:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.7); box-shadow:0 8px 28px rgba(0,0,0,.12); backdrop-filter:blur(24px); }
@@ -1032,7 +1034,7 @@ html[data-theme="graphite"] .logo-front {
 /* HyperFrames / GSAP camera choreography, with direct lateral manipulation. */
 .studio-camera { touch-action:pan-y pinch-zoom; cursor:grab; user-select:none; }
 .studio-camera[data-dragging="true"] { cursor:grabbing; }
-.cinema-layer { opacity:0; pointer-events:none; background:#e4e5e2; will-change:auto; }
+.cinema-layer { opacity:0; pointer-events:none; background:var(--studio-ground); will-change:auto; }
 .cinema-layer.camera-in { will-change:transform,opacity; }
 .camera-gesture-hint { position:absolute; top:29px; right:24px; z-index:4; color:#303537; background:rgba(255,255,255,.82); border-radius:20px; padding:7px 11px; font-size:11px; pointer-events:none; }
 .camera-arrow { position:absolute; top:46%; z-index:4; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.8); color:#242829; backdrop-filter:blur(16px); font-size:30px; line-height:1; cursor:pointer; transition:background 180ms ease,transform 180ms ease; }
