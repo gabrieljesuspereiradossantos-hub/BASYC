@@ -5,9 +5,9 @@ import { gsap } from "gsap";
 import { products } from "../data/catalog";
 
 const views = ["Frente", "Costas", "Costura", "Tecido"];
-type Props = { product: number; view: number; direction: number; fullMotion: boolean; onStep: (direction: number) => void };
+type Props = { product: number; board?: string; view: number; direction: number; fullMotion: boolean; onStep: (direction: number) => void };
 
-export default function ProductPhotos({ product, view, direction, fullMotion, onStep }: Props) {
+export default function ProductPhotos({ product, board, view, direction, fullMotion, onStep }: Props) {
   const layers = useRef<(HTMLDivElement | null)[]>([]);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const initialized = useRef(false);
@@ -82,7 +82,7 @@ export default function ProductPhotos({ product, view, direction, fullMotion, on
     if (layer) gsap.to(layer, { x: 0, duration: .3, ease: "power3.out", overwrite: "auto" });
   }}>
     {products.flatMap((item, productIndex) => views.map((label, viewIndex) => <div key={`${item.id}-${label}`} ref={node => { layers.current[productIndex * views.length + viewIndex] = node; }} className={`camera-layer cinema-layer ${active === productIndex * views.length + viewIndex ? "camera-in" : ""}`} aria-hidden={active !== productIndex * views.length + viewIndex}>
-      {viewIndex === 0 || viewIndex === 1 ? (
+      {item.board ? <div className={`studio-board-panel studio-board-panel-${viewIndex}`} role="img" aria-label={`${item.name}: ${label}, imagem conceitual`} style={{ backgroundImage: `url(${productIndex === product ? board ?? item.board : item.board})` }} /> : viewIndex === 0 || viewIndex === 1 ? (
         // The approved transparent cutouts keep their original proportions.
         // eslint-disable-next-line @next/next/no-img-element
         <img className={`studio-front ${viewIndex === 1 ? "studio-back-image" : ""}`} src={viewIndex === 1 ? item.backImage : item.image} alt={`${item.name} — ${label.toLowerCase()}, imagem conceitual`} draggable={false} />

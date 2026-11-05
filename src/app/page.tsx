@@ -25,7 +25,7 @@ const serverTheme = () => "light" as const;
 const categories = [
   { label: "Camisetas", href: "#pecas" },
   { label: "Calças", href: "#pecas" },
-  { label: "Bermudas", href: `${store}/bermuda-shorts/` },
+  { label: "Bermudas", href: "#pecas" },
   { label: "Plus size", href: `${store}/plus-size/` },
 ];
 
@@ -53,6 +53,14 @@ export default function Home() {
     setOpenProduct(index);
   };
   const closeProductDetail = useCallback(() => setOpenProduct(null), []);
+  const focusCategory = (label: string) => {
+    if (label === "Plus size") return;
+    const index = label === "Calças" ? 2 : label === "Bermudas" ? 4 : 0;
+    setSelectedProduct(index);
+    const shelf = shelfRef.current;
+    const card = shelf?.children[index] as HTMLElement | undefined;
+    if (shelf && card) shelf.scrollTo({ left: card.offsetLeft - shelf.offsetLeft - (shelf.clientWidth - card.clientWidth) / 2, behavior: "smooth" });
+  };
 
   useEffect(() => {
     try {
@@ -108,15 +116,13 @@ export default function Home() {
       shelf.style.opacity = String(reveal);
       const remaining = 1 - reveal;
       const mobileShelf = window.innerWidth <= 700;
-      const cardOffset = [0, 1, 2].map(index => (1 - smooth(index * .12, .82 + index * .06, progress)) * [82, 54, 26][index]);
-      const cardLift = [0, 1, 2].map(index => (1 - smooth(index * .12, .82 + index * .06, progress)) * [30, -12, 22][index]);
+      const cardOffset = products.map((_, index) => (1 - smooth((index % 3) * .12, .82 + (index % 3) * .06, progress)) * [82, 54, 26][index % 3]);
+      const cardLift = products.map((_, index) => (1 - smooth((index % 3) * .12, .82 + (index % 3) * .06, progress)) * [30, -12, 22][index % 3]);
       shelf.style.transform = reduced ? "none" : `translate3d(${mobileShelf ? 0 : remaining * 90}px, ${remaining * 45}px, 0)`;
-      shelf.style.setProperty("--card-parallax-0", `${mobileShelf ? 0 : cardOffset[0]}px`);
-      shelf.style.setProperty("--card-parallax-1", `${mobileShelf ? 0 : cardOffset[1]}px`);
-      shelf.style.setProperty("--card-parallax-2", `${mobileShelf ? 0 : cardOffset[2]}px`);
-      shelf.style.setProperty("--card-lift-0", `${mobileShelf ? 0 : cardLift[0]}px`);
-      shelf.style.setProperty("--card-lift-1", `${mobileShelf ? 0 : cardLift[1]}px`);
-      shelf.style.setProperty("--card-lift-2", `${mobileShelf ? 0 : cardLift[2]}px`);
+      products.forEach((_, index) => {
+        shelf.style.setProperty(`--card-parallax-${index}`, `${mobileShelf ? 0 : cardOffset[index]}px`);
+        shelf.style.setProperty(`--card-lift-${index}`, `${mobileShelf ? 0 : cardLift[index]}px`);
+      });
       shelf.inert = reveal < 0.8;
       const pastHero = stage.getBoundingClientRect().bottom < window.innerHeight;
       explore.style.opacity = String(pastHero ? 0 : reveal);
@@ -215,7 +221,7 @@ export default function Home() {
             <a
               className={`r-nav-${["shirts", "trousers", "shorts", "plus"][index]}`}
               href={category.href}
-              onClick={() => setSelectedProduct(category.label === "Calças" ? 2 : 0)}
+              onClick={() => focusCategory(category.label)}
               key={category.label}
             >
               {category.label}
@@ -267,7 +273,7 @@ export default function Home() {
 
         <nav className="mobile-nav-panel" id="mobile-category-menu" aria-label="Categorias" hidden={!menuOpen}>
           {categories.map((category) => (
-            <a href={category.href} key={category.label} onClick={() => { setMenuOpen(false); setSelectedProduct(category.label === "Calças" ? 2 : 0); }}>
+            <a href={category.href} key={category.label} onClick={() => { setMenuOpen(false); focusCategory(category.label); }}>
               <span>{category.label}</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 12h13m-5-5 5 5-5 5" />
@@ -312,6 +318,10 @@ export default function Home() {
 
             <p className="scroll-invitation">Role para descobrir<span aria-hidden="true">↓</span></p>
             <h2 className="collection-title">Essenciais. Do seu jeito.</h2>
+            <div className="shelf-navigation" aria-label="Navegar pelos produtos">
+              <button type="button" aria-label="Produtos anteriores" onClick={() => shelfRef.current?.scrollBy({ left: -shelfRef.current.clientWidth * .76, behavior: "smooth" })}>←</button>
+              <button type="button" aria-label="Próximos produtos" onClick={() => shelfRef.current?.scrollBy({ left: shelfRef.current.clientWidth * .76, behavior: "smooth" })}>→</button>
+            </div>
             <div className="product-shelf" ref={shelfRef}>
               {products.map((product, index) => (
                 <article
@@ -325,7 +335,7 @@ export default function Home() {
                       src={product.image}
                       alt={product.alt}
                       fill
-                      priority
+                      priority={index < 3}
                       sizes="(max-width: 700px) 76vw, 22vw"
                       className="product-photo"
                     />
@@ -347,6 +357,7 @@ export default function Home() {
               ))}
             </div>
           </div>
+          <span id="pecas" className="collection-anchor" aria-hidden="true" />
         </section>
         <ProductStudio selected={selectedProduct} onSelect={setSelectedProduct} fullMotion={fullMotion} openProduct={openProduct} detailRef={detailRef} onClose={closeProductDetail} />
       </main>

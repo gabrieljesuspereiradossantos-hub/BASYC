@@ -8,10 +8,11 @@ import type { RefObject } from "react";
 const views = ["Frente", "Costas", "Costura", "Tecido"];
 
 export default function ProductStudio({ selected, onSelect, fullMotion, openProduct, detailRef, onClose }: { selected: number; onSelect: (index: number) => void; fullMotion: boolean; openProduct: number | null; detailRef: RefObject<HTMLElement | null>; onClose: () => void }) {
-  const [selection, setSelection] = useState({ product: selected, view: 0, direction: 1 });
-  if (selection.product !== selected) setSelection({ product: selected, view: 0, direction: 1 });
+  const [selection, setSelection] = useState({ product: selected, view: 0, direction: 1, color: 0 });
+  if (selection.product !== selected) setSelection({ product: selected, view: 0, direction: 1, color: 0 });
   const shot = selection;
   const product = products[selected];
+  const variant = product.variants?.[shot.color];
   const chooseView = (view: number) => setSelection(current => ({ ...current, view, direction: Math.sign(view - current.view) || 1 }));
   const step = useCallback((direction: number) => setSelection(current => ({ ...current, view: (current.view + direction + views.length) % views.length, direction })), []);
   const dedicatedRef = useRef<HTMLDivElement>(null);
@@ -57,8 +58,8 @@ export default function ProductStudio({ selected, onSelect, fullMotion, openProd
     <div className="product-detail-backdrop" onClick={onClose} aria-hidden="true" />
     <div className="product-detail-panel" ref={dedicatedRef} role="dialog" aria-modal="true" aria-labelledby="studio-title">
       <div className="studio-camera" tabIndex={0} role="region" aria-label="Galeria de ângulos. Arraste para os lados ou use as setas." onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); step(event.key === "ArrowRight" ? 1 : -1); } }}>
-        <ProductPhotos product={selected} view={shot.view} direction={shot.direction} fullMotion={fullMotion} onStep={step} />
-        <span className="camera-caption">{views[shot.view]} / {product.color}</span>
+        <ProductPhotos key={`${selected}-${variant?.name ?? "default"}`} product={selected} board={variant?.board} view={shot.view} direction={shot.direction} fullMotion={fullMotion} onStep={step} />
+        <span className="camera-caption">{views[shot.view]} / {variant?.name ?? product.color}</span>
         <span className="camera-gesture-hint" aria-hidden="true">Arraste para explorar ↔</span>
         <button type="button" className="camera-arrow camera-prev" aria-label="Ângulo anterior" onClick={() => step(-1)}>‹</button>
         <button type="button" className="camera-arrow camera-next" aria-label="Próximo ângulo" onClick={() => step(1)}>›</button>
@@ -71,9 +72,10 @@ export default function ProductStudio({ selected, onSelect, fullMotion, openProd
         <h1 id="studio-title">{product.name}</h1>
         <p className="product-editorial-copy">{product.fullDescription}</p>
         <dl className="piece-facts"><div><dt>Material</dt><dd>{product.material}</dd></div><div><dt>Em foco</dt><dd>{shot.view === 2 ? product.detail : views[shot.view]}</dd></div></dl>
+        {product.variants && <div className="product-variants" aria-label="Cores conceituais"><p>Explorar cores <span>· imagens conceituais</span></p><div>{product.variants.map((option, index) => <button key={option.name} type="button" aria-label={option.name} aria-pressed={shot.color === index} onClick={() => setSelection(current => ({ ...current, color: index }))}><span className="variant-swatch" style={{ backgroundColor: option.swatch }} /><span>{option.name}</span></button>)}</div></div>}
         <div className="official-price"><span>A partir de</span><strong>R$ {product.price}</strong><span>no Pix · ou R$ {product.regular}</span></div>
         <a className="shop-piece" href={product.href}>Escolher tamanho na loja <span aria-hidden="true">↗</span></a>
-        <p className="price-note">Preço de referência da loja, consultado em 03/11/2026. Cor, tamanho e disponibilidade são confirmados na compra.</p>
+        <p className="price-note">Preço de referência da loja, consultado em {selected >= 3 ? "04/11/2026" : "03/11/2026"}. Cor, tamanho e disponibilidade são confirmados na compra.</p>
         <nav className="detail-related" aria-label="Explorar outro produto">{products.map((item,index)=><button type="button" key={item.id} aria-current={selected===index} onClick={()=>onSelect(index)}>{item.name}</button>)}</nav>
       </div>
     </div>
