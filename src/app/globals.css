@@ -1149,16 +1149,21 @@ html[data-theme="graphite"] .logo-front {
 
 /* A restrained flame lives inside the Black CTA and dissipates on pointer exit. */
 .campaign-copy .black-action { position:relative; overflow:hidden; isolation:isolate; background:#242424; color:#fff; transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease; }
-.black-action-label { position:relative; z-index:2; }
+.black-action-label { position:relative; z-index:2; text-shadow:0 1px 3px rgba(0,0,0,.75); }
 .flame-field { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transform:translateY(30%); transition:opacity 260ms ease,transform 380ms cubic-bezier(.23,1,.32,1); }
-.flame-field i { position:absolute; bottom:-11px; width:23px; height:48px; clip-path:polygon(50% 0,65% 32%,86% 58%,100% 100%,0 100%,14% 58%,35% 32%); clip-path:path("M 11 0 C 8 12 1 19 3 30 C 5 38 0 44 0 48 H 23 C 24 39 21 34 19 28 C 16 19 13 11 11 0 Z"); background:linear-gradient(0deg,#aa2717 3%,#ed5928 44%,#ffa14c 78%,#ffe0a4 100%); transform:translateY(9px) rotate(-5deg) scaleY(.8); transform-origin:bottom center; }
-.flame-field i:nth-child(1) { left:4%; --flame-min:.67; --flame-max:.9; animation-delay:-.42s; animation-duration:850ms; }
-.flame-field i:nth-child(2) { left:19%; --flame-min:.88; --flame-max:1.2; animation-delay:-.1s; animation-duration:1120ms; }
-.flame-field i:nth-child(3) { left:34%; --flame-min:.72; --flame-max:.96; animation-delay:-.65s; animation-duration:940ms; }
-.flame-field i:nth-child(4) { left:49%; --flame-min:.95; --flame-max:1.28; animation-delay:-.24s; animation-duration:1250ms; }
-.flame-field i:nth-child(5) { left:65%; --flame-min:.7; --flame-max:1.04; animation-delay:-.78s; animation-duration:1030ms; }
-.flame-field i:nth-child(6) { left:79%; --flame-min:.82; --flame-max:1.16; animation-delay:-.35s; animation-duration:1170ms; }
-.flame-field i:nth-child(7) { left:92%; --flame-min:.65; --flame-max:.9; animation-delay:-.58s; animation-duration:880ms; }
+.flame-field::before { content:""; position:absolute; inset:auto 0 0; height:19px; background:linear-gradient(0deg,#a62218,#ea5726 65%,transparent); }
+.flame-field i { position:absolute; bottom:-11px; width:36px; height:58px; clip-path:polygon(50% 0,72% 32%,94% 66%,100% 100%,0 100%,6% 66%,28% 32%); clip-path:path("M 18 0 C 16 12 9 19 5 29 C 0 40 0 50 0 58 H 36 C 36 48 35 39 30 29 C 25 19 20 12 18 0 Z"); background:linear-gradient(0deg,#a62218 4%,#ea5726 47%,#ffa14c 82%,#ffe0a4 100%); transform:translateY(9px) rotate(-5deg) scaleY(.8); transform-origin:bottom center; }
+.flame-field i:nth-child(1) { left:-5%; --flame-min:.67; --flame-max:.92; animation-delay:-.42s; animation-duration:850ms; }
+.flame-field i:nth-child(2) { left:5%; --flame-min:.88; --flame-max:1.2; animation-delay:-.1s; animation-duration:1120ms; }
+.flame-field i:nth-child(3) { left:15%; --flame-min:.72; --flame-max:.98; animation-delay:-.65s; animation-duration:940ms; }
+.flame-field i:nth-child(4) { left:25%; --flame-min:.95; --flame-max:1.28; animation-delay:-.24s; animation-duration:1250ms; }
+.flame-field i:nth-child(5) { left:35%; --flame-min:.7; --flame-max:1.04; animation-delay:-.78s; animation-duration:1030ms; }
+.flame-field i:nth-child(6) { left:45%; --flame-min:.82; --flame-max:1.16; animation-delay:-.35s; animation-duration:1170ms; }
+.flame-field i:nth-child(7) { left:55%; --flame-min:.65; --flame-max:.94; animation-delay:-.58s; animation-duration:880ms; }
+.flame-field i:nth-child(8) { left:65%; --flame-min:.9; --flame-max:1.23; animation-delay:-.17s; animation-duration:1190ms; }
+.flame-field i:nth-child(9) { left:75%; --flame-min:.69; --flame-max:1.02; animation-delay:-.72s; animation-duration:970ms; }
+.flame-field i:nth-child(10) { left:85%; --flame-min:.86; --flame-max:1.17; animation-delay:-.3s; animation-duration:1090ms; }
+.flame-field i:nth-child(11) { left:95%; --flame-min:.68; --flame-max:.95; animation-delay:-.54s; animation-duration:910ms; }
 @media(hover:hover) { .black-action:hover .flame-field { opacity:.88; transform:translateY(0); } .black-action:hover .flame-field i { animation-name:flame-sway; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; } }
 @keyframes flame-sway { from { transform:translate3d(-2px,7px,0) rotate(-12deg) scaleY(var(--flame-min,.8)); opacity:.66; } to { transform:translate3d(2px,-4px,0) rotate(11deg) scaleY(var(--flame-max,1.1)); opacity:1; } }
 

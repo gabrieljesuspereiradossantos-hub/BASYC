@@ -373,7 +373,7 @@ export default function Home() {
           <div className="campaign-grid">
             <article className="campaign-card campaign-dark">
               <Image src="/assets/campaign/black-november.webp" alt="Camiseta oversized preta, camiseta branca e calça cargo em composição editorial" fill sizes="(max-width: 700px) 100vw, 50vw" />
-              <div className="campaign-copy"><h3>Black November</h3><p>Seus básicos favoritos, reunidos para a temporada.</p><a className="black-action" href={store}><span className="flame-field" aria-hidden="true">{Array.from({ length: 7 }, (_, i) => <i key={i} />)}</span><span className="black-action-label">Explorar a Black na loja <span aria-hidden="true">↗</span></span></a></div>
+              <div className="campaign-copy"><h3>Black November</h3><p>Seus básicos favoritos, reunidos para a temporada.</p><a className="black-action" href={store}><span className="flame-field" aria-hidden="true">{Array.from({ length: 11 }, (_, i) => <i key={i} />)}</span><span className="black-action-label">Explorar a Black na loja <span aria-hidden="true">↗</span></span></a></div>
             </article>
             <article className="campaign-card campaign-light">
               <Image src="/assets/campaign/kits.webp" alt="Kit editorial com camisetas, work shirt e bermuda cargo" fill sizes="(max-width: 700px) 100vw, 50vw" />
