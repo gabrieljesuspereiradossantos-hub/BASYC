@@ -1068,3 +1068,4 @@ html[data-theme="graphite"] .logo-front {
 .detail-related button[aria-current="true"] { color:var(--ink); }
 .studio-back-image { object-fit:contain; padding:45px 60px 115px; }
 @media(max-width:700px) { .product-detail-overlay { padding:78px 16px 30px; } .dedicated-close { top:16px; right:16px; } .product-detail-panel { grid-template-columns:1fr; gap:20px; } .product-detail-panel .studio-camera { height:min(55svh,580px); min-height:360px; } .product-detail-panel .studio-details { padding:0 4px 20px; } .product-detail-panel .studio-details h1 { font-size:38px; } .studio-back-image { padding:35px 20px 90px; } }
+@media(max-width:700px) { .product-shelf { gap:24px; } .product-card { transform:translate3d(0,0,0); } .product-glass { inset:-8px 0 -10px; } }
