@@ -1151,16 +1151,16 @@ html[data-theme="graphite"] .logo-front {
 .campaign-copy .black-action { position:relative; overflow:hidden; isolation:isolate; background:#242424; color:#fff; transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease; }
 .black-action-label { position:relative; z-index:2; }
 .flame-field { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transform:translateY(30%); transition:opacity 260ms ease,transform 380ms cubic-bezier(.23,1,.32,1); }
-.flame-field i { position:absolute; bottom:-21px; width:23px; height:48px; clip-path:polygon(50% 0,65% 32%,86% 58%,100% 100%,0 100%,14% 58%,35% 32%); background:linear-gradient(20deg,#bb2e14 7%,#f46d2d 55%,#ffcd75 88%,transparent); filter:blur(.5px); transform:rotate(35deg); transform-origin:bottom center; }
-.flame-field i:nth-child(1) { left:4%; height:39px; }
-.flame-field i:nth-child(2) { left:19%; height:52px; animation-delay:-.24s; }
-.flame-field i:nth-child(3) { left:34%; height:42px; animation-delay:-.55s; }
-.flame-field i:nth-child(4) { left:49%; height:55px; animation-delay:-.1s; }
-.flame-field i:nth-child(5) { left:65%; height:44px; animation-delay:-.38s; }
-.flame-field i:nth-child(6) { left:79%; height:51px; animation-delay:-.65s; }
-.flame-field i:nth-child(7) { left:92%; height:38px; animation-delay:-.18s; }
-@media(hover:hover) { .black-action:hover .flame-field { opacity:.82; transform:translateY(0); } .black-action:hover .flame-field i { animation:flame-sway 900ms ease-in-out infinite alternate; } }
-@keyframes flame-sway { from { transform:rotate(26deg) scaleY(.88); } to { transform:rotate(43deg) scaleY(1.08); } }
+.flame-field i { position:absolute; bottom:-11px; width:23px; height:48px; clip-path:polygon(50% 0,65% 32%,86% 58%,100% 100%,0 100%,14% 58%,35% 32%); clip-path:path("M 11 0 C 8 12 1 19 3 30 C 5 38 0 44 0 48 H 23 C 24 39 21 34 19 28 C 16 19 13 11 11 0 Z"); background:linear-gradient(0deg,#aa2717 3%,#ed5928 44%,#ffa14c 78%,#ffe0a4 100%); transform:translateY(9px) rotate(-5deg) scaleY(.8); transform-origin:bottom center; }
+.flame-field i:nth-child(1) { left:4%; --flame-min:.67; --flame-max:.9; animation-delay:-.42s; animation-duration:850ms; }
+.flame-field i:nth-child(2) { left:19%; --flame-min:.88; --flame-max:1.2; animation-delay:-.1s; animation-duration:1120ms; }
+.flame-field i:nth-child(3) { left:34%; --flame-min:.72; --flame-max:.96; animation-delay:-.65s; animation-duration:940ms; }
+.flame-field i:nth-child(4) { left:49%; --flame-min:.95; --flame-max:1.28; animation-delay:-.24s; animation-duration:1250ms; }
+.flame-field i:nth-child(5) { left:65%; --flame-min:.7; --flame-max:1.04; animation-delay:-.78s; animation-duration:1030ms; }
+.flame-field i:nth-child(6) { left:79%; --flame-min:.82; --flame-max:1.16; animation-delay:-.35s; animation-duration:1170ms; }
+.flame-field i:nth-child(7) { left:92%; --flame-min:.65; --flame-max:.9; animation-delay:-.58s; animation-duration:880ms; }
+@media(hover:hover) { .black-action:hover .flame-field { opacity:.88; transform:translateY(0); } .black-action:hover .flame-field i { animation-name:flame-sway; animation-timing-function:ease-in-out; animation-iteration-count:infinite; animation-direction:alternate; } }
+@keyframes flame-sway { from { transform:translate3d(-2px,7px,0) rotate(-12deg) scaleY(var(--flame-min,.8)); opacity:.66; } to { transform:translate3d(2px,-4px,0) rotate(11deg) scaleY(var(--flame-max,1.1)); opacity:1; } }
 
 /* Buttons give consistent, small feedback without moving functional content. */
 .shelf-navigation button,.camera-controls button,.product-variants button,.dedicated-close,.shop-piece,.reviews-arrows button { transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease,color 220ms ease; }
