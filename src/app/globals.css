@@ -1117,12 +1117,6 @@ html[data-theme="graphite"] .logo-front {
 @media(max-width:700px) { .product-detail-overlay { padding:0 16px; } .detail-topbar { min-height:74px; } .detail-wordmark { font-size:27px; } .detail-topbar .dedicated-close { padding:10px 12px; font-size:12px; } .product-detail-panel { gap:22px; padding:8px 0 36px; } .product-detail-panel .studio-camera { height:min(56svh,590px); min-height:350px; } .product-detail-panel .studio-details { padding:0 4px; } .detail-bottom-bar { grid-template-columns:1fr auto; gap:20px; padding:24px 0 36px; } .detail-bottom-bar nav { grid-column:1 / -1; grid-row:2; } .detail-bottom-contact { grid-column:1 / -1; grid-row:3; } .detail-instagram { grid-column:2; grid-row:1; } .instagram-icon { width:48px; height:48px; border-radius:15px; } .instagram-icon svg { width:32px; height:32px; } }
 @media(prefers-reduced-motion:reduce) { .instagram-icon { transition:none; } }
 
-/* Interactive wordmark after the hero docks in the header. */
-.brand-mark { transform-origin:center; transform:perspective(400px) rotateX(var(--mini-rotate-x,0deg)) rotateY(var(--mini-rotate-y,0deg)); transition:transform 320ms cubic-bezier(.22,.8,.3,1),opacity 90ms linear; text-shadow:0 3px 7px color-mix(in srgb,var(--ink) 18%,transparent); }
-.brand-mark::after { content:""; position:absolute; inset:-5px; pointer-events:none; background:radial-gradient(circle at var(--mini-light-x,50%) var(--mini-light-y,50%),color-mix(in srgb,var(--page-ground) 55%,transparent),transparent 60%); opacity:0; transition:opacity 200ms ease; mix-blend-mode:screen; }
-.brand-mark:hover::after { opacity:.7; }
-@media(prefers-reduced-motion:reduce) { .brand-mark { transform:none; transition:opacity 90ms linear; } .brand-mark::after { display:none; } }
-
 /* Each concept sheet is three square frames. Fit a square viewport inside the gallery. */
 .studio-board-panel { inset:auto; top:18px; left:50%; width:auto; height:calc(100% - 112px); max-width:calc(100% - 32px); aspect-ratio:1; transform:translateX(-50%); background-size:300% 100%; background-position:left center; }
 .studio-board-panel-1 { background-position:center center; }
@@ -1152,3 +1146,44 @@ html[data-theme="graphite"] .logo-front {
 @media(max-width:900px) { .campaign-intro { display:block; } .campaign-intro p { max-width:550px; margin-top:20px; } .campaign-card,.campaign-copy { min-height:450px; } .campaign-copy { width:65%; padding:25px; } }
 @media(max-width:700px) { .campaign-section { padding:72px 16px 64px; } .campaign-intro { margin-bottom:30px; } .campaign-grid { grid-template-columns:1fr; gap:14px; } .campaign-card,.campaign-copy { min-height:470px; } .campaign-card img { object-position:60% center; } .campaign-copy { width:72%; padding:25px; } .campaign-copy h3 { font-size:40px; } .campaign-light::after { background:linear-gradient(90deg,rgba(245,245,243,.93),rgba(245,245,243,.05) 85%); } }
 @media(prefers-reduced-motion:reduce) { .campaign-card img { transition:none; } .campaign-card:hover img { transform:none; } }
+
+/* A restrained flame lives inside the Black CTA and dissipates on pointer exit. */
+.campaign-copy .black-action { position:relative; overflow:hidden; isolation:isolate; background:#242424; color:#fff; transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease; }
+.black-action-label { position:relative; z-index:2; }
+.flame-field { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; transform:translateY(30%); transition:opacity 260ms ease,transform 380ms cubic-bezier(.23,1,.32,1); }
+.flame-field i { position:absolute; bottom:-21px; width:23px; height:48px; border-radius:75% 5% 70% 30%; background:linear-gradient(20deg,#bb2e14 7%,#f46d2d 55%,#ffcd75 88%,transparent); filter:blur(2px); transform:rotate(35deg); transform-origin:bottom center; }
+.flame-field i:nth-child(1) { left:4%; height:39px; }
+.flame-field i:nth-child(2) { left:19%; height:52px; animation-delay:-.24s; }
+.flame-field i:nth-child(3) { left:34%; height:42px; animation-delay:-.55s; }
+.flame-field i:nth-child(4) { left:49%; height:55px; animation-delay:-.1s; }
+.flame-field i:nth-child(5) { left:65%; height:44px; animation-delay:-.38s; }
+.flame-field i:nth-child(6) { left:79%; height:51px; animation-delay:-.65s; }
+.flame-field i:nth-child(7) { left:92%; height:38px; animation-delay:-.18s; }
+@media(hover:hover) { .black-action:hover .flame-field { opacity:.82; transform:translateY(0); } .black-action:hover .flame-field i { animation:flame-sway 900ms ease-in-out infinite alternate; } }
+@keyframes flame-sway { from { transform:rotate(26deg) scaleY(.88); } to { transform:rotate(43deg) scaleY(1.08); } }
+
+/* Buttons give consistent, small feedback without moving functional content. */
+.shelf-navigation button,.camera-controls button,.product-variants button,.dedicated-close,.shop-piece,.reviews-arrows button { transition:transform 220ms cubic-bezier(.23,1,.32,1),background-color 220ms ease,color 220ms ease; }
+@media(hover:hover) { .theme-toggle:hover,.bag-link:hover,.mobile-menu-trigger:hover,.shelf-navigation button:hover,.camera-controls button:hover,.product-variants button:hover,.dedicated-close:hover,.shop-piece:hover,.reviews-arrows button:hover { transform:translateY(-2px); } }
+.theme-toggle:active,.bag-link:active,.mobile-menu-trigger:active,.shelf-navigation button:active,.camera-controls button:active,.product-variants button:active,.dedicated-close:active,.shop-piece:active,.campaign-copy a:active,.reviews-arrows button:active { transform:scale(.97); }
+
+.reviews-section { padding:24px 6% 115px; background:var(--page-ground); color:var(--ink); }
+.reviews-heading { max-width:1440px; margin:0 auto 34px; display:flex; align-items:end; justify-content:space-between; gap:30px; }
+.reviews-heading h2 { margin:0 0 9px; font-size:clamp(40px,5vw,74px); line-height:1.03; font-weight:450; letter-spacing:-.04em; }
+.reviews-heading p { margin:0; color:var(--muted); font-size:15px; }
+.reviews-actions { display:flex; align-items:center; gap:25px; }
+.reviews-actions > a { color:var(--ink); font-size:13px; text-underline-offset:5px; white-space:nowrap; }
+.reviews-arrows { display:flex; gap:8px; }
+.reviews-arrows button { width:42px; height:42px; border:1px solid var(--hairline); border-radius:50%; background:var(--glass-surface); color:var(--ink); font-size:20px; cursor:pointer; }
+.reviews-track { max-width:1440px; margin:auto; display:grid; grid-auto-flow:column; grid-auto-columns:calc(33.333% - 10.667px); gap:16px; overflow-x:auto; padding:2px 1px 18px; scroll-snap-type:x mandatory; scroll-padding-inline:1px; scrollbar-width:thin; scrollbar-color:var(--muted) transparent; overscroll-behavior-x:contain; }
+.review-card { min-height:330px; margin:0; padding:30px; display:flex; flex-direction:column; scroll-snap-align:start; border:1px solid var(--hairline); border-radius:15px; background:color-mix(in srgb,var(--surface-contrast) 72%,var(--page-ground)); }
+.review-source { color:var(--muted); font-size:11px; letter-spacing:.045em; }
+.review-card blockquote { flex:1; margin:34px 0 35px; font-size:clamp(22px,2vw,29px); line-height:1.26; letter-spacing:-.025em; }
+.review-card figcaption { display:flex; flex-direction:column; align-items:start; gap:6px; padding-top:17px; border-top:1px solid var(--hairline); }
+.review-card figcaption strong { font-size:13px; font-weight:600; }
+.review-card figcaption span,.review-card figcaption a { color:var(--muted); font-size:12px; line-height:1.4; }
+.review-card figcaption a { margin-top:7px; text-underline-offset:4px; }
+.reviews-arrows button:focus-visible,.review-card a:focus-visible { outline:2px solid var(--focus-ring); outline-offset:3px; }
+@media(max-width:900px) { .reviews-track { grid-auto-columns:minmax(290px,48%); } }
+@media(max-width:700px) { .reviews-section { padding:14px 16px 78px; } .reviews-heading { display:block; } .reviews-heading p { margin-bottom:18px; } .reviews-actions { justify-content:space-between; } .reviews-track { grid-auto-columns:84%; gap:12px; } .review-card { min-height:300px; padding:25px; } }
+@media(prefers-reduced-motion:reduce) { .flame-field,.shelf-navigation button,.camera-controls button,.product-variants button,.dedicated-close,.shop-piece,.reviews-arrows button { transition:none; } .black-action:hover .flame-field i { animation:none; } .theme-toggle:hover,.bag-link:hover,.mobile-menu-trigger:hover,.shelf-navigation button:hover,.camera-controls button:hover,.product-variants button:hover,.dedicated-close:hover,.shop-piece:hover,.reviews-arrows button:hover { transform:none; } }

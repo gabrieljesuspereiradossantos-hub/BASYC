@@ -29,6 +29,13 @@ const categories = [
   { label: "Plus size", href: `${store}/plus-size/` },
 ];
 
+const reviews = [
+  { quote: "Produto de boa qualidade e bonito. Ótimo custo x benefício.", name: "Renato Alexandre", product: "Camiseta Basyc Modal", date: "22/05/2026", href: `${store}/camiseta-basyc-modal/` },
+  { quote: "Simplesmente absurda a qualidade, surpreendeu demais", name: "Vinicius Anacleto", product: "Camiseta Oversized Estonada", date: "26/08/2026", href: `${store}/camiseta-oversized-marmorizada/` },
+  { quote: "O produto superou minhas expectativas: o tecido é macio, o acabamento é impecável e o caimento é perfeito.", name: "João Davi", product: "Work Shirt", date: "27/02/2026", href: `${store}/work-shirt/` },
+  { quote: "Camisa muito estilosa, com caimento perfeito, sem contar com a excelente qualidade do produto.", name: "Ezicley da Costa", product: "Regata Basyc Canelada", date: "09/09/2026", href: `${store}/regata-basyc-fit/` },
+];
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
@@ -40,6 +47,7 @@ export default function Home() {
   const taglineRef = useRef<HTMLHeadingElement>(null);
   const exploreRef = useRef<HTMLAnchorElement>(null);
   const shelfRef = useRef<HTMLDivElement>(null);
+  const reviewsRef = useRef<HTMLDivElement>(null);
   const brandRef = useRef<HTMLAnchorElement>(null);
   const frameRef = useRef<number | null>(null);
   const theme = useSyncExternalStore(subscribeTheme, readTheme, serverTheme);
@@ -110,7 +118,7 @@ export default function Home() {
       mark.style.opacity = String(appear * (reduced ? 1 - dock : 1));
       mark.style.transform = reduced ? "translate3d(-50%, -50%, 0)" :
         `translate3d(calc(-50% + ${x}px), calc(-50% + ${y + (1 - appear) * 60}px), 0) scale(${(0.92 + appear * 0.08) * (1 + (scale - 1) * dock)}) rotateX(${(1 - appear) * 24}deg) rotateY(${(1 - appear) * -24}deg)`;
-      mark.style.pointerEvents = progress > .39 ? "auto" : "none";
+      mark.style.pointerEvents = appear > 0.9 && dock < 0.8 ? "auto" : "none";
       tagline.style.opacity = String(slogan);
       tagline.style.transform = reduced ? "translate(-50%, -50%)" : `translate(-50%, calc(-50% - ${(1 - slogan) * 46}px)) scale(${1 - (1 - slogan) * 0.035})`;
       shelf.style.opacity = String(reveal);
@@ -128,7 +136,6 @@ export default function Home() {
       explore.style.opacity = String(pastHero ? 0 : reveal);
       explore.inert = pastHero || reveal < 0.8;
       brand.style.opacity = String(reduced ? dock : 0);
-      brand.style.pointerEvents = reduced && dock > .8 ? "auto" : "none";
       stage.style.setProperty("--hint-opacity", String(1 - smooth(0, 0.09, progress)));
       stage.style.setProperty("--product-heading-opacity", String(reveal));
       frameRef.current = progress !== target ? requestAnimationFrame(render) : null;
@@ -192,22 +199,6 @@ export default function Home() {
     face.style.setProperty("--shine", "0");
   };
 
-  const tiltSmallBrand = (event: ReactPointerEvent<HTMLAnchorElement>) => {
-    if (event.pointerType === "touch" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const mark = event.currentTarget;
-    const bounds = mark.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - .5;
-    const y = (event.clientY - bounds.top) / bounds.height - .5;
-    mark.style.setProperty("--mini-rotate-x", `${-y * 12}deg`);
-    mark.style.setProperty("--mini-rotate-y", `${x * 16}deg`);
-    mark.style.setProperty("--mini-light-x", `${(x + .5) * 100}%`);
-    mark.style.setProperty("--mini-light-y", `${(y + .5) * 100}%`);
-  };
-
-  const settleSmallBrand = (event: ReactPointerEvent<HTMLAnchorElement>) => {
-    event.currentTarget.style.removeProperty("--mini-rotate-x");
-    event.currentTarget.style.removeProperty("--mini-rotate-y");
-  };
 
   const tiltProduct = (event: ReactPointerEvent<HTMLElement>) => {
     if (event.pointerType === "touch" || (window.matchMedia("(prefers-reduced-motion: reduce)").matches && !fullMotion)) return;
@@ -230,7 +221,7 @@ export default function Home() {
   return (
     <>
       <header className="site-header">
-        <a className="brand-mark r-brand-mark" href="#inicio" ref={brandRef} aria-label="Basyc — início" onPointerMove={tiltSmallBrand} onPointerLeave={settleSmallBrand}>
+        <a className="brand-mark r-brand-mark" href="#inicio" ref={brandRef} aria-label="Basyc — início">
           BASYC
         </a>
 
@@ -382,7 +373,7 @@ export default function Home() {
           <div className="campaign-grid">
             <article className="campaign-card campaign-dark">
               <Image src="/assets/campaign/black-november.webp" alt="Camiseta oversized preta, camiseta branca e calça cargo em composição editorial" fill sizes="(max-width: 700px) 100vw, 50vw" />
-              <div className="campaign-copy"><h3>Black November</h3><p>Seus básicos favoritos, reunidos para a temporada.</p><a href={store}>Explorar a Black na loja <span aria-hidden="true">↗</span></a></div>
+              <div className="campaign-copy"><h3>Black November</h3><p>Seus básicos favoritos, reunidos para a temporada.</p><a className="black-action" href={store}><span className="flame-field" aria-hidden="true">{Array.from({ length: 7 }, (_, i) => <i key={i} />)}</span><span className="black-action-label">Explorar a Black na loja <span aria-hidden="true">↗</span></span></a></div>
             </article>
             <article className="campaign-card campaign-light">
               <Image src="/assets/campaign/kits.webp" alt="Kit editorial com camisetas, work shirt e bermuda cargo" fill sizes="(max-width: 700px) 100vw, 50vw" />
@@ -390,6 +381,12 @@ export default function Home() {
             </article>
           </div>
           <p className="campaign-note">Condição divulgada pela BASYC em 05/11/2026. Consulte produtos participantes, disponibilidade e regras na loja oficial.</p>
+        </section>
+        <section className="reviews-section" aria-labelledby="reviews-title">
+          <div className="reviews-heading"><div><h2 id="reviews-title">Quem veste, conta.</h2><p>Relatos de clientes publicados na loja oficial.</p></div><div className="reviews-actions"><a href={`${store}/avaliacoes/`}>Ver todas as avaliações ↗</a><div className="reviews-arrows"><button type="button" aria-label="Avaliações anteriores" onClick={() => reviewsRef.current?.scrollBy({ left: -reviewsRef.current.clientWidth * .75, behavior: "smooth" })}>←</button><button type="button" aria-label="Próximas avaliações" onClick={() => reviewsRef.current?.scrollBy({ left: reviewsRef.current.clientWidth * .75, behavior: "smooth" })}>→</button></div></div></div>
+          <div className="reviews-track" ref={reviewsRef} aria-label="Avaliações de clientes">
+            {reviews.map(review => <figure className="review-card" key={`${review.name}-${review.product}`}><span className="review-source">Avaliação na loja oficial</span><blockquote>“{review.quote}”</blockquote><figcaption><strong>{review.name}</strong><span>{review.product} · {review.date}</span><a href={review.href}>Ver avaliação na loja ↗</a></figcaption></figure>)}
+          </div>
         </section>
         <ProductStudio selected={selectedProduct} onSelect={setSelectedProduct} fullMotion={fullMotion} openProduct={openProduct} detailRef={detailRef} onClose={closeProductDetail} />
       </main>
