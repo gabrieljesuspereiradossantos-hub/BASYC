@@ -54,8 +54,11 @@ export default function ProductStudio({ selected, onSelect, fullMotion, openProd
 
   return <section ref={detailRef} className="product-detail-overlay" id="produto-dedicado" aria-labelledby="studio-title">
     <div ref={transitionRef} className="product-transition-shell" aria-hidden="true" />
-    <button type="button" className="dedicated-close" onClick={onClose} aria-label="Voltar à vitrine">← Voltar à vitrine</button>
     <div className="product-detail-backdrop" onClick={onClose} aria-hidden="true" />
+    <div className="detail-topbar">
+      <span className="detail-wordmark" aria-label="Basyc">BASYC</span>
+      <button type="button" className="dedicated-close" onClick={onClose} aria-label="Voltar à vitrine">← Voltar à vitrine</button>
+    </div>
     <div className="product-detail-panel" ref={dedicatedRef} role="dialog" aria-modal="true" aria-labelledby="studio-title">
       <div className="studio-camera" tabIndex={0} role="region" aria-label="Galeria de ângulos. Arraste para os lados ou use as setas." onKeyDown={event => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); step(event.key === "ArrowRight" ? 1 : -1); } }}>
         <ProductPhotos key={`${selected}-${variant?.name ?? "default"}`} product={selected} board={variant?.board} view={shot.view} direction={shot.direction} fullMotion={fullMotion} onStep={step} />
@@ -79,6 +82,14 @@ export default function ProductStudio({ selected, onSelect, fullMotion, openProd
         <nav className="detail-related" aria-label="Explorar outro produto">{products.map((item,index)=><button type="button" key={item.id} aria-current={selected===index} onClick={()=>onSelect(index)}>{item.name}</button>)}</nav>
       </div>
     </div>
-
+    <div className="detail-bottom-bar">
+      <div className="detail-bottom-identity"><strong>BASYC</strong><span>o básico bem feito</span></div>
+      <nav aria-label="Navegação da vitrine"><a href="#pecas" onClick={onClose}>Camisetas</a><a href="#pecas" onClick={onClose}>Calças</a><a href="#pecas" onClick={onClose}>Bermudas</a></nav>
+      <div className="detail-bottom-contact"><a href="tel:+5511941830013">(11) 94183-0013</a><a href="mailto:basycbr@gmail.com">basycbr@gmail.com</a></div>
+      <a className="detail-instagram" href="https://www.instagram.com/basycbr/" target="_blank" rel="noopener noreferrer" aria-label="Visitar o Instagram da BASYC" onPointerMove={event => { if (event.pointerType === "touch") return; const icon = event.currentTarget.querySelector<HTMLElement>(".instagram-icon"); if (!icon) return; const rect = icon.getBoundingClientRect(); const x = Math.max(-1, Math.min(1, (event.clientX - rect.left - rect.width / 2) / (rect.width / 2))); const y = Math.max(-1, Math.min(1, (event.clientY - rect.top - rect.height / 2) / (rect.height / 2))); icon.style.transform = `perspective(500px) rotateX(${-y * 16}deg) rotateY(${x * 16}deg)`; }} onPointerLeave={event => { const icon = event.currentTarget.querySelector<HTMLElement>(".instagram-icon"); if (icon) icon.style.transform = ""; }}>
+        <span className="instagram-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="9" y="9" width="30" height="30" rx="9" stroke="currentColor" strokeWidth="3"/><circle cx="24" cy="24" r="7" stroke="currentColor" strokeWidth="3"/><circle cx="33" cy="15" r="2" fill="currentColor"/></svg></span>
+        <span>Instagram <span aria-hidden="true">↗</span></span>
+      </a>
+    </div>
   </section>;
 }

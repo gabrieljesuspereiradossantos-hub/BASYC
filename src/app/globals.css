@@ -1091,3 +1091,28 @@ html[data-theme="graphite"] .logo-front {
 .product-variants button[aria-pressed="true"] { border-color:var(--ink); }
 .variant-swatch { display:block; width:16px; height:16px; border:1px solid color-mix(in srgb,var(--ink) 20%,transparent); border-radius:50%; }
 @media(max-width:700px) { .product-shelf { grid-auto-columns:76vw; padding:12px 12vw 24px; scroll-padding-inline:12vw; } .shelf-navigation { top:23%; right:12vw; } .shelf-navigation button { width:32px; height:32px; font-size:17px; } }
+
+/* The dedicated product view has its own brand bar; vitrine cards stay unchanged. */
+.product-detail-overlay { display:flex; flex-direction:column; padding:0 6%; }
+.detail-topbar { position:relative; z-index:8; flex:none; width:100%; max-width:1440px; min-height:100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.detail-wordmark { color:var(--ink); font-size:clamp(25px,2.6vw,38px); font-weight:750; letter-spacing:-.075em; line-height:1; }
+.detail-topbar .dedicated-close { position:static; flex:none; }
+.product-detail-panel { width:100%; min-height:0; flex:1 0 auto; padding:12px 0 34px; align-items:start; }
+.product-detail-panel .studio-camera { height:min(70svh,760px); min-height:500px; }
+.product-detail-panel .studio-details { padding:0; }
+.product-detail-panel .studio-details h1 { margin-top:0; }
+.detail-bottom-bar { position:relative; z-index:2; flex:none; width:100%; max-width:1440px; margin:auto auto 0; padding:20px 0 24px; border-top:1px solid var(--hairline); display:grid; grid-template-columns:1fr 1.2fr 1fr auto; gap:30px; align-items:center; }
+.detail-bottom-identity { display:flex; flex-direction:column; gap:3px; }
+.detail-bottom-identity strong { font-size:20px; letter-spacing:-.065em; }
+.detail-bottom-identity span { color:var(--muted); font-size:12px; }
+.detail-bottom-bar nav,.detail-bottom-contact { display:flex; flex-wrap:wrap; gap:10px 18px; }
+.detail-bottom-contact { flex-direction:column; gap:4px; }
+.detail-bottom-bar a { color:var(--ink); text-decoration:none; font-size:13px; }
+.detail-bottom-bar a:hover { text-decoration:underline; text-underline-offset:4px; }
+.detail-instagram { display:flex; align-items:center; gap:12px; white-space:nowrap; }
+.instagram-icon { position:relative; display:grid; place-items:center; width:58px; height:58px; border-radius:18px; background:var(--ink); color:var(--page-ground); box-shadow:4px 7px 0 color-mix(in srgb,var(--ink) 28%,transparent),0 14px 25px color-mix(in srgb,var(--ink) 18%,transparent); transform-style:preserve-3d; transition:transform 260ms cubic-bezier(.2,.8,.2,1); }
+.instagram-icon svg { position:relative; width:38px; height:38px; transform:translateZ(18px); }
+.detail-instagram:focus-visible { outline:2px solid var(--focus-ring); outline-offset:5px; border-radius:8px; }
+@media(max-width:900px) { .detail-bottom-bar { grid-template-columns:1fr 1fr; } }
+@media(max-width:700px) { .product-detail-overlay { padding:0 16px; } .detail-topbar { min-height:74px; } .detail-wordmark { font-size:27px; } .detail-topbar .dedicated-close { padding:10px 12px; font-size:12px; } .product-detail-panel { gap:22px; padding:8px 0 36px; } .product-detail-panel .studio-camera { height:min(56svh,590px); min-height:350px; } .product-detail-panel .studio-details { padding:0 4px; } .detail-bottom-bar { grid-template-columns:1fr auto; gap:20px; padding:24px 0 36px; } .detail-bottom-bar nav { grid-column:1 / -1; grid-row:2; } .detail-bottom-contact { grid-column:1 / -1; grid-row:3; } .detail-instagram { grid-column:2; grid-row:1; } .instagram-icon { width:48px; height:48px; border-radius:15px; } .instagram-icon svg { width:32px; height:32px; } }
+@media(prefers-reduced-motion:reduce) { .instagram-icon { transition:none; } }
