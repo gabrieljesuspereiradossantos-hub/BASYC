@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BASYC — o básico bem feito
 
-## Getting Started
+Site editorial e vitrine interativa da BASYC, marca de básicos versáteis. A experiência apresenta uma identidade visual em temas claro e grafite, movimento guiado pela rolagem e páginas de produto com galeria de ângulos.
 
-First, run the development server:
+## Desenvolvimento local
+
+Requisitos: Node.js compatível com Next.js 16 e npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000). Para gerar a versão de produção:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Estrutura
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/`: página, layout e estilos globais.
+- `src/components/`: galeria e experiência dedicada do produto.
+- `src/data/catalog.ts`: catálogo, descrições, preços e links oficiais.
+- `public/assets/`: fotografias conceituais e imagens dos produtos.
+- `public/fonts/`: tipografia Geom e respectiva licença.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+As imagens de produto são conceituais. Preços, disponibilidade, tamanhos e compra devem ser confirmados na loja oficial.
